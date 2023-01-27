@@ -1,0 +1,31 @@
+information file for
+E:\Pallav\movie_0001
+software version = 47c193bda57cdf71d2b9a674affe2abbd4e5a952
+machine name = storm2hcam
+parameters file = C:/Users/Pallav/hcam settings/50Hz_1024x1024.xml
+shutters file = C:/Users/pallav/532_on_seq.xml
+data type = 16 bit integers (binary, little endian)
+number of frames = 1000
+frame size = 1048576
+frame dimensions = 1024 x 1024
+binning = 1 x 1
+horizontal shift speed = NA
+vertical shift speed = NA
+EMCCD Gain = NA
+Preamp Gain = NA
+Exposure Time = 0.01000
+Frames Per Second = 100
+camera temperature (deg. C) = 0
+camera head = NA
+ADChannel = NA
+scalemax = 1759
+scalemin = 0
+x_start = 512
+x_end = 1535
+y_start = 512
+y_end = 1535
+Stage X = -347.00
+Stage Y = -849.00
+Stage Z = 0.00
+Lock Target = -13.3824911293
+notes = 

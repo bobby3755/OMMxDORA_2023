@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--Caution: only certain data types are accepted by parameters.py. In particular, do not use 'long-->
+<!--Accepted: int,int-array,float,float-array,string-array. Otherwise, assumed to be a string-->
+<!--variables which might need more digits than 'int' allows are transformed from string to long in parfix. but if you add a new 'long-->
+<!--be sure to add it there too!-->
+
+<!--Typical settings for ORBIT1 on STORM2-->
+<settings>
+ <!--commonly changed settings-->
+  <std type = 'float'>50</std>
+  <!-- -1 for max_frame= analyze to the end -->
+  <!-- or pick peaks at the beginning, eg use 0 and 9-->
+  <start_frame type="int">0</start_frame>
+  <max_frame type="int">99</max_frame>
+  <!--frames to use during apdax analysis. set to -1 to use whole file-->
+  <apst_fr type = "int">0</apst_fr>
+  <apmax_fr type = "int">999</apmax_fr>
+  
+  <!--mapping-->
+  <mapfilel2r type = 'string'>''</mapfilel2r> <!--Req'd if emchs =2-->
+  <mapfiler2l type = 'string'>''</mapfiler2l> <!--Req'd if emchs =2-->
+  <mapdeg type = 'int'>3</mapdeg> <!-- degree of polynomial mapping-->
+  
+ <!--settings which always should be checked - related to analysis type-->
+ <d3peaks type = "int">1</d3peaks> <!--output .pks3d file if 1-->
+ <emchs type = "int">1</emchs> <!--how many emission channels?-->
+ <ALEX4 type = "int">0</ALEX4> <!--alternating laser with 4 frame sequence - CMOS. 1 for on-->
+ <pks_type type = 'int'>1</pks_type> <!--input for apdax. =0 for .pks file. =1 for pks3d file-->
+ <outtype type = 'int'>1</outtype> <!--output for apdax. =0 for .traces. =1 for trdir-->
+ <autocont type = 'int'>1</autocont> <!-- = 1 to automatically call apdax from ffpdax-->
+ 
+ <!--data source settings-->
+ <from_hal type="int">1</from_hal> <!--set to 0 if from labView-->
+ <hal_info type="int">1</hal_info> <!--set to 1 read in key info from hal directly-->
+ <labview_info type="int">0</labview_info> <!--set to 1 to read in length & ydim from prism3 .inf file-->
+ <endian type = "int">0</endian> <!--storage type. 0 for little endian (hal); 1 for big endian (labview)-->
+  
+   <!-- Film parameters -->
+
+  <!--set frame pixels. if hal = true, these are overwritten-->
+  <xpix_start type ="int">-1</xpix_start>
+  <xpix_stop type ="int">-1</xpix_stop>
+  <ypix_start type ="int">-1</ypix_start>
+  <ypix_stop type ="int">-1</ypix_stop>
+  
+  <bksize type = "int">64</bksize><!-- background subtraction-->
+  
+  <!--display settings. also used for peak finding-->
+ <disp_off type = 'float'>20</disp_off> <!--added to image to offset from zero-->
+ <disp_fact type = "float">400</disp_fact> <!--divide image by this, then multiply by 255-->
+ <det_disp_set type = "int">0</det_disp_set> <!--set to 1 to determine the two above settings from the image itself-->
+  <!--this works poorly if there are initially no spots-->
+  
+  <!--more settings for peak finding-->
+  <pickchan type = 'int'>0</pickchan> <!--if there are two emission channels. pickchan =0 is left channel, pickchan =1 is right channel (higher index), pickchan = 2 is combined-->
+
+ <!--settings specific to .pks3d generation-->
+ <frameset type = "ulong">100</frameset> <!--how many frames to look at at a time?-->
+<dist_thr type = "float">3</dist_thr> <!--how far part can peaks be and still be the same active event-->
+<length_thr type = "ulong">0</length_thr> <!--min length for 'accepted' events-->
+<max_len type = "ulong">1000000</max_len> <!--max length for events. set really high to turn off-->
+<keeptype type = "int">1</keeptype> <!--0 for lower threshold but same algorithm, 1 for intensity-only based keeping decision-->
+<int_thr type = "float">1.5</int_thr> <!-- intensity threshold for keeptype = 1 -->
+<keepratio type = "float">4</keepratio> <!--for keeptype = 0 - how much to lower threshold-->
+ <pickcol type= "int">2</pickcol> <!-- goes with ALEX4. =0 for picking on frames0,1; 1 for frames 2,3; 2 for all frames.-->
+<frameborder type = 'int'>5</frameborder> <!--how many frames along the edge need to be excluded as peak center positions? This used to be hardwired as 8. error if <5-->
+ 
+ <!--settings for apdax when used with pks3d input-->
+ <buffer_fr type = 'int'>15</buffer_fr> <!--frames to add around .pks3d event-->
+ <ignore_bounds type = 'int'>1</ignore_bounds> <!-- ignore bounds in .pks3d event-->
+ 
+ <!--general settings for apdax-->
+ <bst type = 'int'>1</bst> <!--background subtraction type. =0 for constant, =1 for framewise-->
+ <mt type = 'int'>0</mt> <!--masking type. =0 for none, =1 for gaussian mask-->
+ <sibs type = 'int'>3</sibs> <!--*2 + 1 = size of simple integration box-->
+ <fit_thr type = 'int'>200</fit_thr> <!--threshold for trying fitting-->
+ <fit_box type = 'int'>3</fit_box> <!--*2 + 1 = size of box to use during fitting -->
+ <hcam_cal type = 'int'>0</hcam_cal> <!-- set to 1 to use cmos calibration-->
+ <hcam_calsource type = 'string'>''</hcam_calsource> <!--file with hcam calibration-->
+ <hcam_weight type = 'int'>1</hcam_weight> <!--set to 1 to use weighted fit-->
+ <fitxtol type = 'float'>0.003</fitxtol> <!--tolerance value for curvefit for fit parameters. 0.01 works-->
+ <outputpartial type = 'int'>3000</outputpartial> <!--outtput the .trdir every this many frames during analysis. these partial outputs get overwritten-->
+ 
+ <!--Analyze a subset of the peaks?-->
+ <an_sub type='int'>0</an_sub> <!--=0 to analyze all, =1 to analyze continuous subset, =2 to analyze every subi'th peak starting at suboff-->
+ <subcont1 type = 'int'>-1</subcont1> <!--start of continuous block. file starts at zero.-->
+ <subcont2 type = 'int'>-1</subcont2> <!--end of that block. -->
+ <suboff type = 'int'>-1</suboff>
+ <subi type = 'int'>-1</subi> <!-- take every subi peaks starting at suboff-->
+ <startcut type = 'int'>-1</startcut> <!--exclude events which start before this frame. default: -1. note: this happens after an_sub filtering.-->
+ 
+ <!--settings which are overwritten but useful to have in the parameter object-->
+   <dimx type = "int">-1</dimx>
+   <dimy type = "int">-1</dimy>
+    <file type = 'string'>''</file> <!--filename gets added to this field automatically-->
+ 
+ 
+ <gen_2dhist type = 'int'>1</gen_2dhist> <!--generate 2d histograms in python? yes=1-->
+ <!--note 2d histogram settings are hard-wired-->
+ 
+</settings>
